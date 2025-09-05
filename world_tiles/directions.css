@@ -1,0 +1,81 @@
+@view-transition {
+    navigation: auto;
+    types: south;
+}
+
+html:active-view-transition-type(south) {
+    :root {
+        view-transition-name: root;
+    }
+
+    &::view-transition-group(south) {
+        animation-duration: 0.5s;
+    }
+
+    &::view-transition-old(south) {
+        animation: 0.5s move-out-south;
+    }
+
+    &::view-transition-new(south) {
+        animation: 0.5s move-in-south;
+    }
+}
+
+@keyframes move-out-south {
+    from {
+        transform: translateY(0%);
+    }
+
+    to {
+        transform: translateY(-50%);
+    }
+}
+
+@keyframes move-in-south {
+    from {
+        transform: translateY(50%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
+
+body {
+    display: flex;
+    height: 100dvh;
+    width: 100dvw;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 2rem;
+    min-width: 30%;
+    min-height: 30%;
+}
+
+.origin {
+    grid-area: 2 / 2;
+}
+
+.east {
+    grid-area: 2 / 3;
+}
+
+.north {
+    grid-area: 1 / 2;
+}
+
+.west {
+    grid-area: 2 / 1;
+}
+
+.south {
+    grid-area: 3 / 2;
+}
+
