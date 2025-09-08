@@ -1,0 +1,9 @@
+{
+    "name": "view-transitions-demo",
+    "scripts": {
+        "build": "npx tsc"
+    },
+    "devDependencies": {
+        "typescript": "^5.9.2"
+    }
+}

@@ -1,6 +1,59 @@
 @view-transition {
     navigation: auto;
-    types: south;
+}
+
+html:active-view-transition-type(east) {
+    :root {
+        view-transition-name: root;
+    }
+
+    &::view-transition-group(root) {
+        animation-duration: 0.5s;
+    }
+
+    &::view-transition-old(root) {
+        animation: 0.5s move-out-east;
+    }
+
+    &::view-transition-new(root) {
+        animation: 0.5s move-in-east;
+    }
+}
+
+html:active-view-transition-type(north) {
+    :root {
+        view-transition-name: root;
+    }
+
+    &::view-transition-group(root) {
+        animation-duration: 0.5s;
+    }
+
+    &::view-transition-old(root) {
+        animation: 0.5s move-out-north;
+    }
+
+    &::view-transition-new(root) {
+        animation: 0.5s move-in-north;
+    }
+}
+
+html:active-view-transition-type(west) {
+    :root {
+        view-transition-name: root;
+    }
+
+    &::view-transition-group(root) {
+        animation-duration: 0.5s;
+    }
+
+    &::view-transition-old(root) {
+        animation: 0.5s move-out-west;
+    }
+
+    &::view-transition-new(root) {
+        animation: 0.5s move-in-west;
+    }
 }
 
 html:active-view-transition-type(south) {
@@ -8,35 +61,111 @@ html:active-view-transition-type(south) {
         view-transition-name: root;
     }
 
-    &::view-transition-group(south) {
+    &::view-transition-group(root) {
         animation-duration: 0.5s;
     }
 
-    &::view-transition-old(south) {
+    &::view-transition-old(root) {
         animation: 0.5s move-out-south;
     }
 
-    &::view-transition-new(south) {
+    &::view-transition-new(root) {
         animation: 0.5s move-in-south;
+    }
+}
+
+@keyframes move-out-east {
+    from {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes move-in-east {
+    from {
+        opacity: 0;
+        transform: translateX(50%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+@keyframes move-out-north {
+    from {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(50%);
+    }
+}
+
+@keyframes move-in-north {
+    from {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes move-out-west {
+    from {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(50%);
+    }
+}
+
+@keyframes move-in-west {
+    from {
+        opacity: 0;
+        transform: translateX(-50%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-0%);
     }
 }
 
 @keyframes move-out-south {
     from {
+        opacity: 1;
         transform: translateY(0%);
     }
 
     to {
+        opacity: 0;
         transform: translateY(-50%);
     }
 }
 
 @keyframes move-in-south {
     from {
+        opacity: 0;
         transform: translateY(50%);
     }
 
     to {
+        opacity: 1;
         transform: translateY(0%);
     }
 }
@@ -47,11 +176,14 @@ body {
     width: 100dvw;
     align-items: center;
     justify-content: center;
+    margin: 0;
 }
 
 main {
     box-sizing: border-box;
     display: grid;
+    align-items: center;
+    justify-items: center;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     gap: 2rem;
