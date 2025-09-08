@@ -3,14 +3,6 @@
 }
 
 html:active-view-transition-type(east) {
-    :root {
-        view-transition-name: root;
-    }
-
-    &::view-transition-group(root) {
-        animation-duration: 0.5s;
-    }
-
     &::view-transition-old(root) {
         animation: 0.5s move-out-east;
     }
@@ -21,14 +13,6 @@ html:active-view-transition-type(east) {
 }
 
 html:active-view-transition-type(north) {
-    :root {
-        view-transition-name: root;
-    }
-
-    &::view-transition-group(root) {
-        animation-duration: 0.5s;
-    }
-
     &::view-transition-old(root) {
         animation: 0.5s move-out-north;
     }
@@ -39,14 +23,6 @@ html:active-view-transition-type(north) {
 }
 
 html:active-view-transition-type(west) {
-    :root {
-        view-transition-name: root;
-    }
-
-    &::view-transition-group(root) {
-        animation-duration: 0.5s;
-    }
-
     &::view-transition-old(root) {
         animation: 0.5s move-out-west;
     }
@@ -57,14 +33,6 @@ html:active-view-transition-type(west) {
 }
 
 html:active-view-transition-type(south) {
-    :root {
-        view-transition-name: root;
-    }
-
-    &::view-transition-group(root) {
-        animation-duration: 0.5s;
-    }
-
     &::view-transition-old(root) {
         animation: 0.5s move-out-south;
     }

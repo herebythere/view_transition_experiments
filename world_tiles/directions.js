@@ -1,35 +1,71 @@
 "use strict";
-document.addEventListener("DOMContentLoaded", (e) => {
-    console.log("dom content loaded", e);
-});
-window.addEventListener("popstate", function (e) {
-    console.log("pop state!", e);
-});
-window.addEventListener("pageswap", (e) => {
+// document.addEventListener("DOMContentLoaded", (e: Event) => {
+//     console.log("dom content loaded", e);
+//     // history.replaceState({}, location.href);
+// })
+// window.addEventListener("popstate", function (e: PopStateEvent) {
+//     console.log("pop state!", e);
+// })
+window.addEventListener("pageswap", async (e) => {
+    if (!e.viewTransition)
+        return;
     console.log("page swap!", e);
-    console.log(e.viewTransition);
-    console.log(e.activation?.entry.url);
-    if (!e.activation)
+    const transitionType = determineTransitionType(e.activation?.from, e.activation?.entry);
+    if (!transitionType)
         return;
-    let { url } = e.activation.entry;
-    if (!url)
-        return;
-    let url2 = new URL(url);
-    let direction = url2.searchParams.get("direction");
-    console.log(direction);
-    console.log(e.viewTransition?.types);
-    // @ts-ignore
-    if (!window.navigation) {
-        // localStorage.setItem("transitionType", transitionType);
-    }
-});
-window.addEventListener("pagereveal", (e) => {
-    const url = new URL(location.href);
-    const direction = url.searchParams.get("direction");
-    console.log("direction", direction);
-    e.viewTransition?.types.forEach(function (value, key, parent) {
-        console.log("key, parent:", key);
-    }, window);
+    console.log("transition type", transitionType);
+    // // @ts-expect-error
+    // e.viewTransition?.types.add(transitionType);
+    // // @ts-expect-error
+    // if (!window.navigation) {
+    //     localStorage.setItem("direction", transitionType);
+    // }
+    localStorage.setItem("direction", transitionType);
     // @ts-expect-error
-    e.viewTransition?.types.add(direction);
+    e.viewTransition?.types.add(transitionType);
 });
+window.addEventListener("pagereveal", async (e) => {
+    console.log("pagereveal!", e);
+    // if (!e.viewTransition) return;
+    // const transitionType = determineTransitionType(e.activation?.from, e.activation?.entry);
+    // const url = new URL(location.href);
+    // let direction = url.searchParams.get("direction");
+    // console.log("direction:", direction);
+    // if (history.state.revert) {
+    //     console.log("history:", history.state);
+    //     direction = history.state.revert;
+    // }
+    // console.log("final:", direction);
+    // if (!history.state.revert) {
+    //     let revert;
+    //     if (direction === "east") revert = "west";
+    //     if (direction === "north") revert = "south";
+    //     if (direction === "west") revert = "east";
+    //     if (direction === "south") revert = "north";
+    //     if (revert) history.replaceState({ revert }, location.href);
+    // }
+    // // @ts-expect-error
+    // e.viewTransition?.types.clear();
+    // // @ts-expect-error
+    let transitionType;
+    // @ts-expect-error
+    if (!window.navigation) {
+        transitionType = localStorage.getItem("direction");
+    }
+    else {
+        transitionType = localStorage.getItem("direction");
+    }
+    console.log(transitionType);
+    // @ts-expect-error
+    e.viewTransition?.types.add(transitionType);
+});
+function determineTransitionType(from, to) {
+    console.log("from:", from);
+    console.log("to:", to);
+    if (!to?.url)
+        return;
+    const url = new URL(to.url);
+    let direction = url.searchParams.get("direction");
+    console.log("direction:", direction);
+    return direction;
+}
