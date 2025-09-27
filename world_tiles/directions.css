@@ -1,5 +1,6 @@
 @view-transition {
     navigation: auto;
+    types: east, north, west, south;
 }
 
 html:active-view-transition-type(east) {

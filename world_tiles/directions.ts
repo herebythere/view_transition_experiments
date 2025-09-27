@@ -1,35 +1,53 @@
 window.addEventListener("pageswap", async (e: PageSwapEvent) => {
     if (!e.viewTransition) return;
 
-    const transitionType = determineTransitionType(e.activation?.from, e.activation?.entry);
-    if (!transitionType) return;
-
-    localStorage.setItem("direction", transitionType);
-
     // @ts-expect-error
-    e.viewTransition?.types.add(transitionType);
+    if (!window.navigation) {
+        localStorage.setItem("prevUrl", location.href);
+    }
 })
 
 window.addEventListener("pagereveal", async (e: PageRevealEvent) => {
-    let transitionType;
+    if (!e.viewTransition) return;
+
     // @ts-expect-error
-    if (!window.navigation) {
-        transitionType = localStorage.getItem("direction");
-    } else {
-        transitionType = localStorage.getItem("direction");
-    }
-    
+    let prevUrl = (window.navigation)
+        // @ts-expect-error
+        ? new URL(window.navigation.activation.from.url)
+        : localStorage.getItem("prevUrl");
+
+    console.log(prevUrl);
+
+    // // @ts-expect-error
+    // e.viewTransition.types.add(transitionType);
+
     // @ts-expect-error
-    e.viewTransition?.types.add(transitionType);
+    console.log("default view transition types", e.viewTransition.types.entries());
 })
 
+// When view transitions are supported in all browsers
+// "from" will never be a string
 function determineTransitionType(
-    from: NavigationHistoryEntry | null | undefined,
-    to: NavigationHistoryEntry | null | undefined,
+    origin: NavigationHistoryEntry | string | null | undefined,
+    target: NavigationHistoryEntry | null | undefined,
 ) {
-    if (!to?.url) return;
-    const url = new URL(to.url);
-    let direction = url.searchParams.get("direction");
+    return "unknown";
 
-    return direction;
+    // let originUrl: URL | undefined;
+    // if ("string" === typeof origin) originUrl = new URL(origin);
+    // if (origin instanceof NavigationHistoryEntry && origin.url) originUrl = new URL(origin.url);
+    // if (!originUrl) return;
+
+    // if (!target?.url) return;
+    // const targetUrl = new URL(target.url);
+
+    // let originCoordinates = getCoordinates(originUrl);
+
+
+    // return "unknown";
+}
+
+function getCoordinates(url: URL) {
+    let coordinateStr = url.searchParams.get("coordinates");
+
 }

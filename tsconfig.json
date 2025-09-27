@@ -3,6 +3,7 @@
 		"lib": ["DOM", "ESNext"],
 		"strict": true,
 		"module": "esnext",
-		"target": "esnext"
+		"target": "esnext",
+		"removeComments": true
 	}
 }
